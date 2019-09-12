@@ -1,5 +1,8 @@
 from storefront import StorefrontConfig
-import json, time, re
+import json
+import time
+import re
+
 
 class FileController:
 
@@ -14,13 +17,13 @@ class FileController:
 
         return StorefrontConfig(parsed_dict)
 
-
     @staticmethod
     def write_file(object: StorefrontConfig, file_name: str):
         fp = open(file_name, 'w')
         data_str = json.dumps(object.data, sort_keys=True, indent=4, separators=(',', ': '))
         fp.write(data_str)
         fp.close()
+
 
 modify_data = {
         "expiration_time": 200,
@@ -51,6 +54,7 @@ modify_data = {
         ]
     }
 }
+
 
 if __name__ == '__main__':
     config = FileController.read_file("data.json")

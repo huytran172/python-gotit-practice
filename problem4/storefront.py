@@ -2,12 +2,12 @@
 def updateHelper(data: object, modify_data: object):
     if isinstance(data, dict):
         for key, value in modify_data.items():
-            if key in data:
+            if key in data and isinstance(data[key], dict):
+                updateHelper(data[key], value)
+            else:
                 data[key] = value
-        for key, value in data.items():
-            return {key: updateHelper(value, modify_data)}
-    else:
         return data 
+
 
 class StorefrontConfig:
 
@@ -15,8 +15,6 @@ class StorefrontConfig:
         self.data = data
 
     def update(self, modify_data: object):
-        print(self.data)
-        print(modify_data)
         self.data = updateHelper(self.data, modify_data)
 
         
